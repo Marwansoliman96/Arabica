@@ -1,0 +1,1497 @@
+<!-- /index.html -->
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>مطحن بن اريكا</title>
+    <style>
+      :root {
+        /* Espresso Gold palette */
+        --bg: #0b0d10;
+        --text: #f5f1e8;
+        --muted: #a89f92;
+
+        --accent: #d4af37;
+        --accent-2: #7a5c2e;
+
+        --stroke: rgba(245, 241, 232, 0.12);
+        --chip: rgba(245, 241, 232, 0.06);
+        --chip-on: rgba(212, 175, 55, 0.22);
+
+        --surface: rgba(245, 241, 232, 0.04);
+        --surface-2: rgba(245, 241, 232, 0.06);
+
+        --radius: 18px;
+        --bottomnav-h: 76px;
+
+        --shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+
+        --page-pad: 14px;
+        --safe-l: env(safe-area-inset-left);
+        --safe-r: env(safe-area-inset-right);
+        --safe-b: env(safe-area-inset-bottom);
+      }
+
+      * { box-sizing: border-box; }
+      html, body { overflow-x: hidden; }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans Arabic", Arial, sans-serif;
+        background:
+          radial-gradient(1200px 700px at 80% -10%, rgba(212,175,55,0.10), transparent),
+          radial-gradient(900px 600px at 0% 20%, rgba(245,241,232,0.06), transparent),
+          var(--bg);
+        color: var(--text);
+      }
+
+      .wrap {
+        width: min(980px, calc(100% - (var(--page-pad) * 2)));
+        margin-inline: auto;
+      }
+
+      .container {
+        padding: var(--page-pad);
+        padding-bottom: calc(var(--bottomnav-h) + var(--page-pad) + var(--safe-b));
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        backdrop-filter: blur(12px);
+        background: rgba(11, 13, 16, 0.78);
+        border-bottom: 1px solid var(--stroke);
+      }
+      @media (max-width: 600px) { .topbar { position: static; } }
+
+      .topbar-inner {
+        padding: 12px var(--page-pad);
+        display: grid;
+        gap: 10px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .brand h1 {
+        margin: 0;
+        font-size: 16px;
+        letter-spacing: 0.2px;
+        font-weight: 900;
+      }
+      .badge {
+        font-size: 12px;
+        color: var(--muted);
+        border: 1px solid var(--stroke);
+        padding: 6px 10px;
+        border-radius: 999px;
+        white-space: nowrap;
+        background: rgba(245,241,232,0.03);
+        max-width: 100%;
+      }
+
+      .search-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: nowrap;
+      }
+      .search {
+        flex: 1 1 auto;
+        min-width: 0;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        border: 1px solid var(--stroke);
+        border-radius: 999px;
+        background: var(--surface);
+        padding: 10px 12px;
+      }
+      .search input {
+        width: 100%;
+        min-width: 0;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        color: var(--text);
+        font-size: 14px;
+      }
+
+      .icon-btn {
+        flex: 0 0 auto;
+        border: 1px solid var(--stroke);
+        background: var(--surface);
+        color: var(--text);
+        border-radius: 12px;
+        padding: 10px 12px;
+        font-size: 13px;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: transform 120ms ease, border-color 160ms ease, background 160ms ease;
+        max-width: 100%;
+      }
+      .icon-btn:hover { border-color: rgba(212,175,55,0.35); background: var(--surface-2); }
+      .icon-btn:active { transform: translateY(1px); }
+
+      @media (max-width: 420px) {
+        .search-row { flex-wrap: wrap; }
+        .search { width: 100%; }
+        .icon-btn { width: 100%; }
+      }
+
+      .row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        min-width: 0;
+      }
+
+      .hscroll {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 10px 0 6px;
+        scrollbar-width: none;
+        min-width: 0;
+        max-width: 100%;
+      }
+      .hscroll::-webkit-scrollbar { display: none; }
+
+      .chip {
+        white-space: nowrap;
+        padding: 10px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--stroke);
+        background: var(--chip);
+        color: var(--text);
+        font-size: 13px;
+        cursor: pointer;
+        user-select: none;
+        transition: border-color 160ms ease, background 160ms ease;
+        max-width: 100%;
+      }
+      .chip:hover { border-color: rgba(212,175,55,0.35); }
+      .chip.on { background: var(--chip-on); border-color: rgba(212,175,55,0.45); }
+
+      .section-title {
+        margin: 14px 0 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .section-title h2 {
+        margin: 0;
+        font-size: 14px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .select {
+        border: 1px solid var(--stroke);
+        border-radius: 12px;
+        background: var(--surface);
+        color: var(--text);
+        padding: 10px 12px;
+        font-size: 13px;
+        outline: none;
+        max-width: 100%;
+      }
+
+      .notice {
+        margin-top: 10px;
+        border: 1px solid rgba(212,175,55,0.20);
+        background: rgba(212,175,55,0.06);
+        border-radius: 16px;
+        padding: 10px 12px;
+        color: rgba(245,241,232,0.92);
+        font-size: 13px;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .notice span { color: rgba(245,241,232,0.72); }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        max-width: 100%;
+      }
+      @media (min-width: 720px) {
+        .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .brand h1 { font-size: 18px; }
+      }
+
+      .card {
+        border: 1px solid var(--stroke);
+        background: rgba(245,241,232,0.035);
+        border-radius: var(--radius);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 120ms ease, border-color 160ms ease, background 160ms ease;
+      }
+      .card:hover { border-color: rgba(212,175,55,0.22); background: rgba(245,241,232,0.045); }
+      .card:active { transform: scale(0.99); }
+
+      .thumb {
+        height: 92px;
+        border-bottom: 1px solid var(--stroke);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(245,241,232,0.78);
+        font-size: 12px;
+        position: relative;
+        overflow: hidden;
+        background:
+          radial-gradient(700px 240px at 50% 10%, rgba(212,175,55,0.15), transparent),
+          linear-gradient(135deg, rgba(245,241,232,0.09), rgba(245,241,232,0.02));
+      }
+
+      .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .thumb::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.55));
+        pointer-events: none;
+      }
+
+      .thumb-label {
+        position: absolute;
+        inset-inline: 10px;
+        bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        pointer-events: none;
+      }
+
+      .pill {
+        border: 1px solid rgba(212,175,55,0.25);
+        background: rgba(11,13,16,0.58);
+        color: rgba(245,241,232,0.92);
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        max-width: 70%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .fav {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        z-index: 2;
+        border: 1px solid var(--stroke);
+        background: rgba(11,13,16,0.55);
+        border-radius: 999px;
+        padding: 6px 8px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
+      }
+      .fav:hover { border-color: rgba(212,175,55,0.35); }
+      .fav.on {
+        border-color: rgba(212,175,55,0.65);
+        color: rgba(212,175,55,1);
+        background: rgba(212,175,55,0.10);
+      }
+
+      .card-body {
+        padding: 10px 10px 12px;
+        display: grid;
+        gap: 8px;
+      }
+      .name { font-size: 14px; font-weight: 900; line-height: 1.2; }
+
+      .meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 12px;
+        min-width: 0;
+      }
+
+      .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+      .tag {
+        border: 1px solid var(--stroke);
+        background: rgba(245,241,232,0.03);
+        color: rgba(245,241,232,0.80);
+        padding: 4px 8px;
+        border-radius: 999px;
+        font-size: 11px;
+        max-width: 100%;
+      }
+
+      .weights {
+        border: 1px solid rgba(212,175,55,0.20);
+        background: rgba(212,175,55,0.06);
+        border-radius: 14px;
+        padding: 8px 10px;
+        display: grid;
+        gap: 6px;
+      }
+      .weights .roww {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        align-items: center;
+        font-size: 12px;
+      }
+      .weights .w { color: rgba(245,241,232,0.88); }
+      .weights .p { color: rgba(245,241,232,0.70); white-space: nowrap; }
+
+      .empty {
+        border: 1px dashed rgba(245,241,232,0.18);
+        border-radius: var(--radius);
+        padding: 18px;
+        color: var(--muted);
+        text-align: center;
+        margin-top: 12px;
+      }
+
+      .cat-section { margin-top: 14px; display: grid; gap: 10px; }
+
+      .cat-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 10px 12px;
+        border: 1px solid rgba(212,175,55,0.18);
+        border-radius: 16px;
+        background: rgba(245,241,232,0.03);
+      }
+      .cat-header .title { font-weight: 900; font-size: 14px; }
+      .cat-header .count { color: var(--muted); font-size: 12px; white-space: nowrap; }
+
+      /* Bottom Nav */
+      .bottomnav {
+        position: fixed;
+        inset-inline: 0;
+        bottom: 0;
+        z-index: 40;
+        background: rgba(11, 13, 16, 0.88);
+        backdrop-filter: blur(12px);
+        border-top: 1px solid var(--stroke);
+        padding-bottom: var(--safe-b);
+        padding-inline: max(var(--page-pad), var(--safe-l), var(--safe-r));
+      }
+
+      .bottomnav-inner {
+        width: min(980px, 100%);
+        margin-inline: auto;
+        padding: 10px 0;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        height: var(--bottomnav-h);
+        align-content: center;
+      }
+
+      .navbtn {
+        border: 1px solid var(--stroke);
+        background: var(--surface);
+        color: var(--text);
+        border-radius: 16px;
+        padding: 10px 12px;
+        font-size: 13px;
+        cursor: pointer;
+        transition: border-color 160ms ease, background 160ms ease;
+        min-width: 0;
+        max-width: 100%;
+      }
+      .navbtn:hover { border-color: rgba(212,175,55,0.35); background: var(--surface-2); }
+      .navbtn.on { background: rgba(212,175,55,0.10); border-color: rgba(212,175,55,0.35); }
+
+      /* Modal bottom sheet */
+      .modal {
+        position: fixed;
+        inset: 0;
+        display: none;
+        z-index: 60;
+        background: rgba(0,0,0,0.62);
+        align-items: flex-end;
+        justify-content: center;
+        padding-top: 12px;
+        padding-bottom: max(12px, var(--safe-b));
+        padding-inline: max(12px, var(--safe-l), var(--safe-r));
+      }
+      .modal.on { display: flex; }
+
+      .sheet {
+        direction: rtl;
+        width: min(980px, 100%);
+        margin-inline: auto;
+        border-radius: 22px 22px 0 0;
+        border: 1px solid rgba(212,175,55,0.20);
+        background: rgba(18, 22, 28, 0.94);
+        backdrop-filter: blur(12px);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transform: translateY(18px);
+        opacity: 0;
+        transition: transform 200ms ease, opacity 200ms ease;
+        max-height: min(78vh, 720px);
+        display: grid;
+        grid-template-rows: auto 1fr;
+      }
+      .modal.on .sheet { transform: translateY(0); opacity: 1; }
+
+      @media (min-width: 860px) {
+        .modal { align-items: center; }
+        .sheet { border-radius: 22px; max-width: 720px; max-height: min(82vh, 760px); }
+      }
+
+      .sheet-header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-bottom: 1px solid rgba(245,241,232,0.10);
+        background: rgba(245,241,232,0.03);
+      }
+
+      .handle {
+        height: 4px;
+        width: 46px;
+        border-radius: 999px;
+        background: rgba(245,241,232,0.22);
+        justify-self: center;
+        grid-column: 1 / -1;
+        margin-top: 6px;
+        margin-bottom: 2px;
+      }
+
+      .sheet-header .title {
+        font-size: 14px;
+        font-weight: 950;
+        min-width: 0;
+      }
+
+      .sheet-body {
+        padding: 14px;
+        display: grid;
+        gap: 12px;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        max-width: 100%;
+      }
+
+      .sheet-hero {
+        height: 160px;
+        border-radius: 18px;
+        border: 1px solid rgba(212,175,55,0.20);
+        overflow: hidden;
+        position: relative;
+        background:
+          radial-gradient(700px 240px at 50% 10%, rgba(212,175,55,0.16), transparent),
+          linear-gradient(135deg, rgba(245,241,232,0.08), rgba(245,241,232,0.02));
+        display: grid;
+        place-items: center;
+        color: rgba(245,241,232,0.78);
+        font-size: 12px;
+      }
+      .sheet-hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .sheet-hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.55));
+        pointer-events: none;
+      }
+      .sheet-hero .hero-label {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        pointer-events: none;
+      }
+
+      .sheet-desc { color: rgba(245,241,232,0.72); font-size: 13px; line-height: 1.55; }
+
+      .options {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        max-width: 100%;
+      }
+
+      .opt {
+        border: 1px solid rgba(245,241,232,0.14);
+        background: rgba(245,241,232,0.04);
+        color: var(--text);
+        padding: 10px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 13px;
+        transition: border-color 160ms ease, background 160ms ease;
+        max-width: 100%;
+      }
+      .opt:hover { border-color: rgba(212,175,55,0.35); }
+      .opt.on { background: rgba(212,175,55,0.12); border-color: rgba(212,175,55,0.45); }
+
+      .toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        border: 1px solid rgba(212,175,55,0.22);
+        background: rgba(212,175,55,0.06);
+        padding: 12px 12px;
+        border-radius: 16px;
+        cursor: pointer;
+        max-width: 100%;
+      }
+      .toggle strong { font-size: 13px; }
+      .toggle span { color: rgba(245,241,232,0.70); font-size: 12px; }
+
+      .sheet-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+      .primary {
+        border: 1px solid rgba(212,175,55,0.40);
+        background: rgba(212,175,55,0.14);
+        border-radius: 14px;
+        padding: 12px 14px;
+        color: var(--text);
+        cursor: pointer;
+        font-size: 13px;
+        transition: transform 120ms ease, border-color 160ms ease, background 160ms ease;
+        max-width: 100%;
+      }
+      .primary:hover { border-color: rgba(212,175,55,0.55); background: rgba(212,175,55,0.18); }
+      .primary:active { transform: translateY(1px); }
+
+      .muted { color: var(--muted); font-size: 12px; }
+    </style>
+  </head>
+
+  <body>
+    <div class="topbar">
+      <div class="wrap topbar-inner">
+        <div class="brand">
+          <h1>مطحن بن اريكا — المنيو</h1>
+          <div class="badge" id="resultsBadge">0 صنف</div>
+        </div>
+
+        <div class="search-row">
+          <div class="search" role="search">
+            <span aria-hidden="true">🔎</span>
+            <input id="searchInput" type="search" placeholder="ابحث: قهوة / موكا / بن الاكابر..." autocomplete="off" />
+          </div>
+          <button class="icon-btn" id="clearBtn" title="مسح">مسح</button>
+        </div>
+
+        <div class="row">
+          <div class="hscroll" id="categoryTabs"></div>
+        </div>
+
+        <div class="row" style="justify-content: space-between">
+          <div class="hscroll" id="filterChips"></div>
+          <select class="select" id="sortSelect" aria-label="ترتيب">
+            <option value="popular">الأكثر طلبًا</option>
+            <option value="price_asc">السعر: من الأقل</option>
+            <option value="price_desc">السعر: من الأعلى</option>
+            <option value="name">الاسم</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap container">
+      <div class="section-title">
+        <h2 id="sectionHint">كل الأصناف</h2>
+        <span class="muted" id="activeFiltersHint"></span>
+      </div>
+
+      <div class="notice">
+        <div>إضافة: تحويجة مخصوص <strong>+15 جنيه</strong></div>
+        <span>تظهر داخل منتجات البن</span>
+      </div>
+
+      <div id="groupedRoot" style="display:none;"></div>
+      <div class="grid" id="grid"></div>
+
+      <div class="empty" id="empty" style="display:none">
+        <div style="font-weight:900; margin-bottom:6px;">لا توجد نتائج</div>
+        <div style="margin-bottom:12px;">جرّب تمسح الفلاتر أو تقلل كلمة البحث.</div>
+        <button class="primary" id="resetFiltersBtn">مسح كل الفلاتر</button>
+      </div>
+    </div>
+
+    <div class="bottomnav" aria-label="التنقل">
+      <div class="bottomnav-inner">
+        <button class="navbtn on" id="navMenu">المنيو</button>
+        <button class="navbtn" id="navFav">المفضلة</button>
+        <button class="navbtn" id="navFocusSearch">بحث</button>
+      </div>
+    </div>
+
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="sheet" role="document" aria-label="تفاصيل المنتج">
+        <div class="sheet-header">
+          <div class="handle" aria-hidden="true"></div>
+          <div class="title" id="modalTitle">تفاصيل</div>
+          <button class="icon-btn" id="modalClose">إغلاق</button>
+        </div>
+
+        <div class="sheet-body">
+          <div class="sheet-hero" id="modalHero"></div>
+
+          <div class="tags" id="modalTags"></div>
+
+          <div class="sheet-desc" id="modalDesc"></div>
+
+          <div id="modalOptionsWrap" style="display:none;">
+            <div class="muted" style="margin-bottom:8px;">اختار الوزن</div>
+            <div class="options" id="modalOptions"></div>
+          </div>
+
+          <div id="modalAddonWrap" style="display:none;">
+            <div class="toggle" id="addonToggle" role="switch" aria-checked="false" tabindex="0">
+              <div>
+                <strong>تحويجة مخصوص (+15)</strong>
+                <div><span>تضاف على السعر</span></div>
+              </div>
+              <div id="addonState" class="tag">OFF</div>
+            </div>
+          </div>
+
+          <div class="row" style="justify-content: space-between;">
+            <div class="name" id="modalPrice"></div>
+            <div class="muted" id="modalCategory"></div>
+          </div>
+
+          <div class="sheet-actions">
+            <button class="primary" id="modalFavBtn">إضافة للمفضلة</button>
+            <button class="primary" id="modalClearFavBtn" style="display:none;">إزالة</button>
+            <span class="muted" id="priceHint"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      "use strict";
+
+      const WEIGHT_ORDER = [
+        { key: "1/8", label: "1/8 كيلو" },
+        { key: "1/4", label: "1/4 كيلو" },
+        { key: "1/2", label: "1/2 كيلو" },
+        { key: "kilo", label: "كيلو" },
+      ];
+
+      const PRODUCTS = [
+        // المشروبات
+        { id: "d1", name_ar: "قهوة تركى", category: "المشروبات", tags: ["قهوة"], price: 10, currency: "ج", popularScore: 95, desc: "", image:"images/turkish.webp" },
+        { id: "d2", name_ar: "قهوة فرنساوى (Flavours)", category: "المشروبات", tags: ["قهوة", "نكهات"], price: 15, currency: "ج", popularScore: 90, desc: "", image:"images/french.webp" },
+        { id: "d3", name_ar: "قهوة بندق", category: "المشروبات", tags: ["قهوة", "نكهات"], price: 15, currency: "ج", popularScore: 88, desc: "", image:"images/bondoq.webp" },
+        { id: "d4", name_ar: "قهوة شوكولاته", category: "المشروبات", tags: ["قهوة", "شوكولاتة"], price: 15, currency: "ج", popularScore: 86, desc: "", image:"images/chocolate.webp" },
+        { id: "d5", name_ar: "كوفى ميكس", category: "المشروبات", tags: ["قهوة"], price: 15, currency: "ج", popularScore: 89, desc: "", image:"images/mix.webp" },
+        { id: "d6", name_ar: "كابتشينو", category: "المشروبات", tags: ["قهوة"], price: 20, currency: "ج", popularScore: 92, desc: "", image:"images/cappu.webp" },
+        { id: "d7", name_ar: "اسبريسو سنجل", category: "المشروبات", tags: ["قهوة"], price: 15, currency: "ج", popularScore: 85, desc: "", image:"images/espresso-single.webp" },
+        { id: "d8", name_ar: "اسبريسو دبل", category: "المشروبات", tags: ["قهوة"], price: 20, currency: "ج", popularScore: 87, desc: "", image:"images/espresso-d.webp" },
+        { id: "d9", name_ar: "لاتيه", category: "المشروبات", tags: ["قهوة"], price: 25, currency: "ج", popularScore: 91, desc: "", image:"images/latte.webp" },
+        { id: "d10", name_ar: "موكا", category: "المشروبات", tags: ["قهوة", "شوكولاتة"], price: 25, currency: "ج", popularScore: 90, desc: "", image:"images/mocha.webp" },
+        { id: "d11", name_ar: "كاكاو", category: "المشروبات", tags: ["شوكولاتة"], price: 15, currency: "ج", popularScore: 84, desc: "" , image:"images/cacao.webp"},
+        { id: "d12", name_ar: "شاي", category: "المشروبات", tags: ["شاي"], price: 7, currency: "ج", popularScore: 83, desc: "", image:"images/tea.webp" },
+        { id: "d13", name_ar: "شاي نكهات", category: "المشروبات", tags: ["شاي", "نكهات"], price: 10, currency: "ج", popularScore: 82, desc: "", image:"images/tea-falv.webp" },
+
+        // بن مطحون بالوزن
+        {
+          id: "b1",
+          name_ar: "بن الاكابر",
+          category: "بن مطحون بالوزن",
+          tags: ["بن"],
+          currency: "ج",
+          popularScore: 92,
+          desc: "بن مطحون بالوزن.", image:"images/akaber.webp",
+          options: [
+            { key: "1/8", label: "1/8 كيلو", price: 55 },
+            { key: "1/4", label: "1/4 كيلو", price: 110 },
+            { key: "1/2", label: "1/2 كيلو", price: 220 },
+            { key: "kilo", label: "كيلو", price: 440 },
+          ],
+          addon: { label: "تحويجة مخصوص", price: 15 },
+        },
+        {
+          id: "b2",
+          name_ar: "سبيشيال",
+          category: "بن مطحون بالوزن",
+          tags: ["بن"],
+          currency: "ج",
+          popularScore: 88,
+          desc: "بن مطحون بالوزن.", image:"images/special.webp",
+          options: [
+            { key: "1/8", label: "1/8 كيلو", price: 60 },
+            { key: "1/4", label: "1/4 كيلو", price: 120 },
+            { key: "1/2", label: "1/2 كيلو", price: 240 },
+            { key: "kilo", label: "كيلو", price: 480 },
+          ],
+          addon: { label: "تحويجة مخصوص", price: 15 },
+        },
+        {
+          id: "b3",
+          name_ar: "سبشيال",
+          category: "بن مطحون بالوزن",
+          tags: ["بن"],
+          currency: "ج",
+          popularScore: 86,
+          desc: "بن مطحون بالوزن.", image:"images/special.webp",
+          options: [
+            { key: "1/8", label: "1/8 كيلو", price: 60 },
+            { key: "1/4", label: "1/4 كيلو", price: 120 },
+            { key: "1/2", label: "1/2 كيلو", price: 240 },
+            { key: "kilo", label: "كيلو", price: 480 },
+          ],
+          addon: { label: "تحويجة مخصوص", price: 15 },
+        },
+        {
+          id: "b4",
+          name_ar: "غامق",
+          category: "بن مطحون بالوزن",
+          tags: ["بن"],
+          currency: "ج",
+          popularScore: 87,
+          desc: "بن مطحون بالوزن.", image:"images/dark.webp",
+          options: [
+            { key: "1/8", label: "1/8 كيلو", price: 60 },
+            { key: "1/4", label: "1/4 كيلو", price: 120 },
+            { key: "1/2", label: "1/2 كيلو", price: 240 },
+            { key: "kilo", label: "كيلو", price: 480 },
+          ],
+          addon: { label: "تحويجة مخصوص", price: 15 },
+        },
+        {
+          id: "b5",
+          name_ar: "الحبشي",
+          category: "بن مطحون بالوزن",
+          tags: ["بن"],
+          currency: "ج",
+          popularScore: 90,
+          desc: "بن مطحون بالوزن.", image:"images/habashy.webp",
+          options: [
+            { key: "1/8", label: "1/8 كيلو", price: 70 },
+            { key: "1/4", label: "1/4 كيلو", price: 140 },
+            { key: "1/2", label: "1/2 كيلو", price: 280 },
+            { key: "kilo", label: "كيلو", price: 560 },
+          ],
+          addon: { label: "تحويجة مخصوص", price: 15 },
+        },
+        {
+          id: "b6",
+          name_ar: "العميد",
+          category: "بن مطحون بالوزن",
+          tags: ["بن"],
+          currency: "ج",
+          popularScore: 89,
+          desc: "بن مطحون بالوزن.", image:"images/ameed.webp",
+          options: [
+            { key: "1/8", label: "1/8 كيلو", price: 75 },
+            { key: "1/4", label: "1/4 كيلو", price: 150 },
+            { key: "1/2", label: "1/2 كيلو", price: 300 },
+            { key: "kilo", label: "كيلو", price: 600 },
+          ],
+          addon: { label: "تحويجة مخصوص", price: 15 },
+        },
+        {
+          id: "b7",
+          name_ar: "الكولومبي",
+          category: "بن مطحون بالوزن",
+          tags: ["بن"],
+          currency: "ج",
+          popularScore: 85,
+          desc: "بن مطحون بالوزن.", image:"images/colomby.webp",
+          options: [
+            { key: "1/8", label: "1/8 كيلو", price: 95 },
+            { key: "1/4", label: "1/4 كيلو", price: 190 },
+            { key: "1/2", label: "1/2 كيلو", price: 380 },
+            { key: "kilo", label: "كيلو", price: 760 },
+          ],
+          addon: { label: "تحويجة مخصوص", price: 15 },
+        },
+      ];
+
+      const CHIP_DEFS = [
+        { key: "قهوة", label: "قهوة" },
+        { key: "شاي", label: "شاي" },
+        { key: "شوكولاتة", label: "شوكولاتة" },
+        { key: "نكهات", label: "نكهات" },
+        { key: "بن", label: "بن" },
+        { key: "FavoritesOnly", label: "المفضلة ⭐" },
+      ];
+
+      const FAVORITES_KEY = "menu_favorites_v5";
+
+      const state = {
+        query: "",
+        category: "All",
+        chips: new Set(),
+        sort: "popular",
+        favorites: loadFavorites(),
+        modalProductId: null,
+        modalSelectedOptionKey: null,
+        modalAddonOn: false,
+      };
+
+      function normalizeText(s) {
+        return (s || "").toString().trim().toLowerCase().replace(/\s+/g, " ");
+      }
+
+      function formatPrice(p, currency) {
+        return `${p} ${currency}`;
+      }
+
+      function uniq(arr) {
+        return Array.from(new Set(arr));
+      }
+
+      function loadFavorites() {
+        try {
+          const raw = localStorage.getItem(FAVORITES_KEY);
+          if (!raw) return new Set();
+          const ids = JSON.parse(raw);
+          if (!Array.isArray(ids)) return new Set();
+          return new Set(ids);
+        } catch {
+          return new Set();
+        }
+      }
+
+      function saveFavorites(set) {
+        localStorage.setItem(FAVORITES_KEY, JSON.stringify(Array.from(set)));
+      }
+
+      function buildCategories(products) {
+        const cats = uniq(products.map((p) => p.category));
+        return ["All", ...cats];
+      }
+
+      function optionsMap(p) {
+        const m = new Map();
+        (p.options || []).forEach((o) => m.set(o.key, o));
+        return m;
+      }
+
+      function getPriceForOption(p, key) {
+        const m = optionsMap(p);
+        return m.get(key)?.price;
+      }
+
+      function getMinPrice(p) {
+        if (Array.isArray(p.options) && p.options.length) return Math.min(...p.options.map((o) => o.price));
+        return p.price ?? 0;
+      }
+
+      function getMaxPrice(p) {
+        if (Array.isArray(p.options) && p.options.length) return Math.max(...p.options.map((o) => o.price));
+        return p.price ?? 0;
+      }
+
+      function sortProducts(list, mode) {
+        const copy = list.slice();
+        switch (mode) {
+          case "price_asc":
+            copy.sort((a, b) => getMinPrice(a) - getMinPrice(b));
+            break;
+          case "price_desc":
+            copy.sort((a, b) => getMaxPrice(b) - getMaxPrice(a));
+            break;
+          case "name":
+            copy.sort((a, b) => (a.name_ar || "").localeCompare(b.name_ar || ""));
+            break;
+          case "popular":
+          default:
+            copy.sort((a, b) => (b.popularScore || 0) - (a.popularScore || 0));
+            break;
+        }
+        return copy;
+      }
+
+      function computeModalPrice(p) {
+        const base =
+          Array.isArray(p.options) && p.options.length
+            ? (p.options.find((o) => o.key === state.modalSelectedOptionKey)?.price ?? p.options[0].price)
+            : (p.price ?? 0);
+
+        const addon = p.addon && state.modalAddonOn ? (p.addon.price ?? 0) : 0;
+        return base + addon;
+      }
+
+      function getImageSrc(p) {
+        // Local images by convention: images/<id>.webp
+        // You can override per product by setting p.image = "images/custom.webp"
+        return p.image || `images/${p.id}.webp`;
+      }
+
+      function applyFiltersBase(products) {
+        const q = normalizeText(state.query);
+        const chips = state.chips;
+        const favOnly = chips.has("FavoritesOnly");
+        const activeTagChips = Array.from(chips).filter((c) => c !== "FavoritesOnly");
+
+        let list = products.slice();
+
+        if (q.length) {
+          list = list.filter((p) => {
+            const hay = normalizeText(`${p.name_ar} ${p.category} ${(p.tags || []).join(" ")} ${p.desc || ""}`);
+            return hay.includes(q);
+          });
+        }
+
+        if (activeTagChips.length) {
+          list = list.filter((p) => activeTagChips.every((t) => (p.tags || []).includes(t)));
+        }
+
+        if (favOnly) list = list.filter((p) => state.favorites.has(p.id));
+
+        return sortProducts(list, state.sort);
+      }
+
+      function applyFilters() {
+        let list = PRODUCTS.slice();
+        if (state.category !== "All") list = list.filter((p) => p.category === state.category);
+        return applyFiltersBase(list);
+      }
+
+      const el = {
+        categoryTabs: document.getElementById("categoryTabs"),
+        filterChips: document.getElementById("filterChips"),
+        grid: document.getElementById("grid"),
+        groupedRoot: document.getElementById("groupedRoot"),
+        empty: document.getElementById("empty"),
+        resultsBadge: document.getElementById("resultsBadge"),
+        activeFiltersHint: document.getElementById("activeFiltersHint"),
+        sectionHint: document.getElementById("sectionHint"),
+        searchInput: document.getElementById("searchInput"),
+        clearBtn: document.getElementById("clearBtn"),
+        sortSelect: document.getElementById("sortSelect"),
+        resetFiltersBtn: document.getElementById("resetFiltersBtn"),
+        navMenu: document.getElementById("navMenu"),
+        navFav: document.getElementById("navFav"),
+        navFocusSearch: document.getElementById("navFocusSearch"),
+
+        modal: document.getElementById("modal"),
+        modalClose: document.getElementById("modalClose"),
+        modalTitle: document.getElementById("modalTitle"),
+        modalHero: document.getElementById("modalHero"),
+        modalTags: document.getElementById("modalTags"),
+        modalDesc: document.getElementById("modalDesc"),
+        modalPrice: document.getElementById("modalPrice"),
+        modalCategory: document.getElementById("modalCategory"),
+        modalFavBtn: document.getElementById("modalFavBtn"),
+        modalClearFavBtn: document.getElementById("modalClearFavBtn"),
+        priceHint: document.getElementById("priceHint"),
+
+        modalOptionsWrap: document.getElementById("modalOptionsWrap"),
+        modalOptions: document.getElementById("modalOptions"),
+        modalAddonWrap: document.getElementById("modalAddonWrap"),
+        addonToggle: document.getElementById("addonToggle"),
+        addonState: document.getElementById("addonState"),
+      };
+
+      function toggleFavorite(id) {
+        if (state.favorites.has(id)) state.favorites.delete(id);
+        else state.favorites.add(id);
+        saveFavorites(state.favorites);
+      }
+
+      function renderCategories() {
+        const cats = buildCategories(PRODUCTS);
+        el.categoryTabs.innerHTML = "";
+        cats.forEach((c) => {
+          const btn = document.createElement("button");
+          btn.className = "chip" + (state.category === c ? " on" : "");
+          btn.textContent = c === "All" ? "كل الأقسام" : c;
+          btn.addEventListener("click", () => {
+            state.category = c;
+            renderAll();
+          });
+          el.categoryTabs.appendChild(btn);
+        });
+      }
+
+      function renderChips() {
+        el.filterChips.innerHTML = "";
+        CHIP_DEFS.forEach(({ key, label }) => {
+          const btn = document.createElement("button");
+          const isOn = state.chips.has(key);
+          btn.className = "chip" + (isOn ? " on" : "");
+          btn.textContent = label;
+          btn.addEventListener("click", () => {
+            if (state.chips.has(key)) state.chips.delete(key);
+            else state.chips.add(key);
+            renderAll();
+          });
+          el.filterChips.appendChild(btn);
+        });
+      }
+
+      function buildWeightsOnCard(p) {
+        const wrap = document.createElement("div");
+        wrap.className = "weights";
+
+        WEIGHT_ORDER.forEach((w) => {
+          const row = document.createElement("div");
+          row.className = "roww";
+
+          const left = document.createElement("div");
+          left.className = "w";
+          left.textContent = w.label;
+
+          const price = document.createElement("div");
+          price.className = "p";
+          const val = getPriceForOption(p, w.key);
+          price.textContent = typeof val === "number" ? formatPrice(val, p.currency) : "—";
+
+          row.appendChild(left);
+          row.appendChild(price);
+          wrap.appendChild(row);
+        });
+
+        return wrap;
+      }
+
+      function buildThumb(thumb, p) {
+        thumb.innerHTML = "";
+
+        const img = document.createElement("img");
+        img.src = getImageSrc(p);
+        img.alt = p.name_ar;
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.addEventListener("error", () => {
+          img.remove(); // fallback to gradient background
+        });
+        thumb.appendChild(img);
+
+        const label = document.createElement("div");
+        label.className = "thumb-label";
+
+        const leftPill = document.createElement("div");
+        leftPill.className = "pill";
+        leftPill.textContent = p.category === "بن مطحون بالوزن" ? "بن" : "مشروب";
+
+        const rightPill = document.createElement("div");
+        rightPill.className = "pill";
+        rightPill.textContent = p.name_ar;
+
+        label.appendChild(leftPill);
+        label.appendChild(rightPill);
+        thumb.appendChild(label);
+      }
+
+      function buildCard(p) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.tabIndex = 0;
+
+        const thumb = document.createElement("div");
+        thumb.className = "thumb";
+        buildThumb(thumb, p);
+
+        const fav = document.createElement("button");
+        fav.className = "fav" + (state.favorites.has(p.id) ? " on" : "");
+        fav.textContent = state.favorites.has(p.id) ? "★" : "☆";
+        fav.title = "مفضلة";
+        fav.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleFavorite(p.id);
+          renderAll();
+        });
+        thumb.appendChild(fav);
+
+        const body = document.createElement("div");
+        body.className = "card-body";
+
+        const name = document.createElement("div");
+        name.className = "name";
+        name.textContent = p.name_ar;
+
+        const tags = document.createElement("div");
+        tags.className = "tags";
+        (p.tags || []).slice(0, 3).forEach((t) => {
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = t;
+          tags.appendChild(tag);
+        });
+
+        body.appendChild(name);
+        body.appendChild(tags);
+
+        if (p.category === "بن مطحون بالوزن") {
+          body.appendChild(buildWeightsOnCard(p));
+        } else {
+          const meta = document.createElement("div");
+          meta.className = "meta";
+
+          const cat = document.createElement("span");
+          cat.textContent = p.category;
+
+          const price = document.createElement("span");
+          price.textContent = formatPrice(p.price, p.currency);
+
+          meta.appendChild(cat);
+          meta.appendChild(price);
+          body.appendChild(meta);
+        }
+
+        card.appendChild(thumb);
+        card.appendChild(body);
+
+        card.addEventListener("click", () => openModal(p.id));
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") openModal(p.id);
+        });
+
+        return card;
+      }
+
+      function renderGrid(items) {
+        el.grid.innerHTML = "";
+        items.forEach((p) => el.grid.appendChild(buildCard(p)));
+      }
+
+      function categoryOrderKey(cat) {
+        const order = ["المشروبات", "بن مطحون بالوزن"];
+        const idx = order.indexOf(cat);
+        return idx === -1 ? 999 : idx;
+      }
+
+      function renderGroupedByCategory(items) {
+        const groups = new Map();
+        items.forEach((p) => {
+          const k = p.category || "أخرى";
+          if (!groups.has(k)) groups.set(k, []);
+          groups.get(k).push(p);
+        });
+
+        const orderedCats = Array.from(groups.keys()).sort((a, b) => {
+          const ka = categoryOrderKey(a);
+          const kb = categoryOrderKey(b);
+          if (ka !== kb) return ka - kb;
+          return a.localeCompare(b);
+        });
+
+        el.groupedRoot.innerHTML = "";
+        orderedCats.forEach((cat) => {
+          const section = document.createElement("div");
+          section.className = "cat-section";
+
+          const header = document.createElement("div");
+          header.className = "cat-header";
+
+          const title = document.createElement("div");
+          title.className = "title";
+          title.textContent = cat;
+
+          const count = document.createElement("div");
+          count.className = "count";
+          count.textContent = `${groups.get(cat).length} صنف`;
+
+          header.appendChild(title);
+          header.appendChild(count);
+
+          const grid = document.createElement("div");
+          grid.className = "grid";
+          groups.get(cat).forEach((p) => grid.appendChild(buildCard(p)));
+
+          section.appendChild(header);
+          section.appendChild(grid);
+
+          el.groupedRoot.appendChild(section);
+        });
+      }
+
+      function shouldShowGroupedView() {
+        const q = (state.query || "").trim().length > 0;
+        const hasChips = Array.from(state.chips).some((c) => c !== "FavoritesOnly");
+        return state.category === "All" && !q && !hasChips;
+      }
+
+      function renderHints(items) {
+        el.resultsBadge.textContent = `${items.length} صنف`;
+
+        const filters = [];
+        if (state.category !== "All") filters.push(`قسم: ${state.category}`);
+        if (state.query.trim()) filters.push(`بحث: "${state.query.trim()}"`);
+        if (state.chips.size) filters.push(`فلاتر: ${Array.from(state.chips).join(", ")}`);
+
+        el.activeFiltersHint.textContent = filters.length ? filters.join(" • ") : "";
+        el.sectionHint.textContent = state.category === "All" ? "كل الأصناف" : `قسم: ${state.category}`;
+        el.empty.style.display = items.length ? "none" : "block";
+      }
+
+      function renderBottomNav() {
+        const favOnly = state.chips.has("FavoritesOnly");
+        el.navMenu.classList.toggle("on", !favOnly);
+        el.navFav.classList.toggle("on", favOnly);
+      }
+
+      function setAddonUI(on) {
+        el.addonToggle.setAttribute("aria-checked", String(on));
+        el.addonState.textContent = on ? "ON" : "OFF";
+      }
+
+      function renderModalOptions(p) {
+        const hasOptions = Array.isArray(p.options) && p.options.length;
+        el.modalOptionsWrap.style.display = hasOptions ? "block" : "none";
+        el.modalOptions.innerHTML = "";
+
+        if (!hasOptions) {
+          state.modalSelectedOptionKey = null;
+          return;
+        }
+
+        const existing = WEIGHT_ORDER
+          .map((w) => ({ ...w, price: getPriceForOption(p, w.key) }))
+          .filter((x) => typeof x.price === "number");
+
+        if (!existing.length) {
+          state.modalSelectedOptionKey = null;
+          return;
+        }
+
+        if (!state.modalSelectedOptionKey || !existing.some((x) => x.key === state.modalSelectedOptionKey)) {
+          state.modalSelectedOptionKey = existing[0].key;
+        }
+
+        existing.forEach((o) => {
+          const btn = document.createElement("button");
+          btn.className = "opt" + (o.key === state.modalSelectedOptionKey ? " on" : "");
+          btn.textContent = `${o.label} — ${formatPrice(o.price, p.currency)}`;
+          btn.addEventListener("click", () => {
+            state.modalSelectedOptionKey = o.key;
+            openModal(p.id);
+            renderAll();
+          });
+          el.modalOptions.appendChild(btn);
+        });
+      }
+
+      function renderModalAddon(p) {
+        const hasAddon = !!p.addon && typeof p.addon.price === "number";
+        el.modalAddonWrap.style.display = hasAddon ? "block" : "none";
+        if (!hasAddon) {
+          state.modalAddonOn = false;
+          return;
+        }
+        setAddonUI(state.modalAddonOn);
+      }
+
+      function renderModalHero(p) {
+        el.modalHero.innerHTML = "";
+
+        const img = document.createElement("img");
+        img.src = getImageSrc(p);
+        img.alt = p.name_ar;
+        img.loading = "eager";
+        img.decoding = "async";
+        img.addEventListener("error", () => img.remove());
+        el.modalHero.appendChild(img);
+
+        const label = document.createElement("div");
+        label.className = "hero-label";
+
+        const leftPill = document.createElement("div");
+        leftPill.className = "pill";
+        leftPill.textContent = p.category === "بن مطحون بالوزن" ? "بن" : "مشروب";
+
+        const rightPill = document.createElement("div");
+        rightPill.className = "pill";
+        rightPill.textContent = p.name_ar;
+
+        label.appendChild(leftPill);
+        label.appendChild(rightPill);
+        el.modalHero.appendChild(label);
+      }
+
+      function openModal(productId) {
+        const p = PRODUCTS.find((x) => x.id === productId);
+        if (!p) return;
+
+        state.modalProductId = productId;
+        if (!p.addon) state.modalAddonOn = false;
+
+        el.modalTitle.textContent = p.name_ar;
+        renderModalHero(p);
+
+        el.modalDesc.textContent = p.desc || "";
+        el.modalCategory.textContent = p.category;
+
+        el.modalTags.innerHTML = "";
+        (p.tags || []).forEach((t) => {
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = t;
+          el.modalTags.appendChild(tag);
+        });
+
+        renderModalOptions(p);
+        renderModalAddon(p);
+
+        const total = computeModalPrice(p);
+        el.modalPrice.textContent = formatPrice(total, p.currency);
+        el.priceHint.textContent =
+          p.category === "بن مطحون بالوزن" ? `السعر حسب الوزن${p.addon ? " + التحويجة (اختياري)" : ""}` : "";
+
+        const isFav = state.favorites.has(productId);
+        el.modalFavBtn.textContent = isFav ? "في المفضلة بالفعل" : "إضافة للمفضلة";
+        el.modalFavBtn.disabled = isFav;
+        el.modalClearFavBtn.style.display = isFav ? "inline-flex" : "none";
+
+        el.modal.classList.add("on");
+        el.modal.setAttribute("aria-hidden", "false");
+      }
+
+      function closeModal() {
+        state.modalProductId = null;
+        state.modalSelectedOptionKey = null;
+        state.modalAddonOn = false;
+        el.modal.classList.remove("on");
+        el.modal.setAttribute("aria-hidden", "true");
+      }
+
+      function renderAll() {
+        renderCategories();
+        renderChips();
+
+        const items = applyFilters();
+
+        const grouped = shouldShowGroupedView();
+        el.groupedRoot.style.display = grouped ? "block" : "none";
+        el.grid.style.display = grouped ? "none" : "grid";
+
+        if (grouped) renderGroupedByCategory(items);
+        else renderGrid(items);
+
+        renderHints(items);
+        renderBottomNav();
+      }
+
+      let searchTimer = null;
+
+      el.searchInput.addEventListener("input", (e) => {
+        const val = e.target.value || "";
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+          state.query = val;
+          renderAll();
+        }, 150);
+      });
+
+      el.clearBtn.addEventListener("click", () => {
+        state.query = "";
+        state.category = "All";
+        state.chips = new Set();
+        state.sort = "popular";
+        el.searchInput.value = "";
+        el.sortSelect.value = "popular";
+        renderAll();
+      });
+
+      el.sortSelect.addEventListener("change", (e) => {
+        state.sort = e.target.value;
+        renderAll();
+      });
+
+      el.resetFiltersBtn.addEventListener("click", () => {
+        state.query = "";
+        state.category = "All";
+        state.chips = new Set();
+        state.sort = "popular";
+        el.searchInput.value = "";
+        el.sortSelect.value = "popular";
+        renderAll();
+      });
+
+      el.navFav.addEventListener("click", () => {
+        state.chips.add("FavoritesOnly");
+        renderAll();
+      });
+
+      el.navMenu.addEventListener("click", () => {
+        state.chips.delete("FavoritesOnly");
+        renderAll();
+      });
+
+      el.navFocusSearch.addEventListener("click", () => {
+        el.searchInput.focus();
+      });
+
+      el.modalClose.addEventListener("click", closeModal);
+      el.modal.addEventListener("click", (e) => {
+        if (e.target === el.modal) closeModal();
+      });
+
+      el.modalFavBtn.addEventListener("click", () => {
+        const id = state.modalProductId;
+        if (!id) return;
+        toggleFavorite(id);
+        openModal(id);
+        renderAll();
+      });
+
+      el.modalClearFavBtn.addEventListener("click", () => {
+        const id = state.modalProductId;
+        if (!id) return;
+        if (state.favorites.has(id)) state.favorites.delete(id);
+        saveFavorites(state.favorites);
+        openModal(id);
+        renderAll();
+      });
+
+      el.addonToggle.addEventListener("click", () => {
+        const p = PRODUCTS.find((x) => x.id === state.modalProductId);
+        if (!p || !p.addon) return;
+        state.modalAddonOn = !state.modalAddonOn;
+        openModal(p.id);
+      });
+
+      el.addonToggle.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          el.addonToggle.click();
+        }
+      });
+
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+      });
+
+      renderAll();
+    </script>
+  </body>
+</html>
