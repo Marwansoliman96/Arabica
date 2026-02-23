@@ -903,7 +903,7 @@
         { key: "kilo", label: "كيلو" },
       ];
 
-      const PRODUCTS = [
+      const PRODUCTS = [  
         // المشروبات
         { id: "d1", name_ar: "قهوة تركى", category: "المشروبات", tags: ["قهوة"], price: 10, currency: "ج", popularScore: 95, desc: "", image:"images/turkish.webp" },
         { id: "d2", name_ar: "قهوة فرنساوى (Flavours)", category: "المشروبات", tags: ["قهوة", "نكهات"], price: 15, currency: "ج", popularScore: 90, desc: "", image:"images/french.webp" },
@@ -922,7 +922,7 @@
         // بن مطحون بالوزن
         {
           id: "b1",
-          name_ar: "بن الاكابر",
+          name_ar: "توليفة بن الاكابر",
           category: "بن مطحون بالوزن",
           tags: ["بن"],
           currency: "ج",
@@ -936,25 +936,10 @@
           ],
           addon: { label: "تحويجة مخصوص", price: 15 },
         },
-        {
-          id: "b2",
-          name_ar: "سبيشيال",
-          category: "بن مطحون بالوزن",
-          tags: ["بن"],
-          currency: "ج",
-          popularScore: 88,
-          desc: "بن مطحون بالوزن.", image:"images/special.webp",
-          options: [
-            { key: "1/8", label: "1/8 كيلو", price: 60 },
-            { key: "1/4", label: "1/4 كيلو", price: 120 },
-            { key: "1/2", label: "1/2 كيلو", price: 240 },
-            { key: "kilo", label: "كيلو", price: 480 },
-          ],
-          addon: { label: "تحويجة مخصوص", price: 15 },
-        },
+       
         {
           id: "b3",
-          name_ar: "سبشيال",
+          name_ar: "توليفة سبيشيال",
           category: "بن مطحون بالوزن",
           tags: ["بن"],
           currency: "ج",
@@ -986,7 +971,7 @@
         },
         {
           id: "b5",
-          name_ar: "الحبشي",
+          name_ar: "بن حبشي",
           category: "بن مطحون بالوزن",
           tags: ["بن"],
           currency: "ج",
@@ -1002,7 +987,7 @@
         },
         {
           id: "b6",
-          name_ar: "العميد",
+          name_ar: "توليفة العميد",
           category: "بن مطحون بالوزن",
           tags: ["بن"],
           currency: "ج",
@@ -1018,7 +1003,7 @@
         },
         {
           id: "b7",
-          name_ar: "الكولومبي",
+          name_ar: "بن كولومبي",
           category: "بن مطحون بالوزن",
           tags: ["بن"],
           currency: "ج",
@@ -1273,7 +1258,10 @@
         img.alt = p.name_ar;
         img.loading = "lazy";
         img.decoding = "async";
-        img.addEventListener("error", () => { img.remove(); });
+        img.addEventListener("error", () => {
+  console.warn("IMG FAILED:", img.src);
+  img.style.display = "none"; // نخفيه بدل ما نمسحه
+});
         thumb.appendChild(img);
 
         const label = document.createElement("div");
@@ -1495,7 +1483,9 @@
         el.modalHero.innerHTML = "";
 
         const img = document.createElement("img");
-        img.src = getImageSrc(p);
+        function getImageSrc(p) {
+  return p.image || `/images/${p.id}.webp`;
+}
         img.alt = p.name_ar;
         img.loading = "eager";
         img.decoding = "async";
