@@ -594,6 +594,128 @@
       .primary:active { transform: translateY(1px); }
 
       .muted { color: var(--muted); font-size: 12px; }
+
+      /* ===== Contact Section ===== */
+      .contact {
+        margin-top: 18px;
+        border: 1px solid rgba(212,175,55,0.18);
+        background: rgba(245,241,232,0.03);
+        border-radius: 18px;
+        padding: 14px;
+        display: grid;
+        gap: 12px;
+      }
+
+      .contact-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .contact-title {
+        font-weight: 950;
+        letter-spacing: 0.2px;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .contact-sub {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      @media (min-width: 720px) {
+        .contact-grid { grid-template-columns: 1.25fr 1fr; }
+      }
+
+      .contact-card {
+        border: 1px solid rgba(245,241,232,0.12);
+        background: rgba(245,241,232,0.03);
+        border-radius: 16px;
+        padding: 12px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .contact-row {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+
+      .contact-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+        border: 1px solid rgba(212,175,55,0.22);
+        background: rgba(212,175,55,0.10);
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+      }
+
+      .contact-label {
+        font-weight: 900;
+        margin-bottom: 2px;
+      }
+
+      .contact-text {
+        color: rgba(245,241,232,0.82);
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .contact-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .linkbtn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        border: 1px solid rgba(212,175,55,0.30);
+        background: rgba(212,175,55,0.12);
+        color: var(--text);
+        padding: 10px 12px;
+        border-radius: 14px;
+        font-size: 13px;
+        transition: transform 120ms ease, border-color 160ms ease, background 160ms ease;
+      }
+      .linkbtn:hover {
+        border-color: rgba(212,175,55,0.55);
+        background: rgba(212,175,55,0.18);
+      }
+      .linkbtn:active { transform: translateY(1px); }
+
+      .linkbtn.secondary {
+        border-color: rgba(245,241,232,0.14);
+        background: rgba(245,241,232,0.04);
+      }
+      .linkbtn.secondary:hover {
+        border-color: rgba(212,175,55,0.35);
+        background: rgba(245,241,232,0.06);
+      }
+
+      .contact-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+        color: rgba(245,241,232,0.65);
+        font-size: 12px;
+        padding-top: 4px;
+      }
     </style>
   </head>
 
@@ -648,6 +770,75 @@
         <div style="margin-bottom:12px;">جرّب تمسح الفلاتر أو تقلل كلمة البحث.</div>
         <button class="primary" id="resetFiltersBtn">مسح كل الفلاتر</button>
       </div>
+
+      <!-- ===== Contact / Social Section ===== -->
+      <section class="contact" aria-label="بيانات التواصل">
+        <div class="contact-head">
+          <div class="contact-title">📞 تواصل معنا</div>
+          <div class="contact-sub">العنوان • أرقام الاتصال • صفحاتنا</div>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Address -->
+          <div class="contact-card">
+            <div class="contact-row">
+              <div class="contact-icon">🗺️</div>
+              <div>
+                <div class="contact-label">العنوان</div>
+                <div class="contact-text">
+                  7 شارع عمر المختار متفرع من شارع ابو قير امام محطه مترو (الرمل الميري)
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-actions">
+              <!-- Optional: Google Maps search link (safe, no exact coordinates needed) -->
+              <a class="linkbtn secondary" target="_blank" rel="noopener"
+                 href="https://maps.app.goo.gl/6j3mmdQPafWmAfMG9">
+                📍 افتح على الخريطة
+              </a>
+            </div>
+          </div>
+
+          <!-- Phones + Social -->
+          <div class="contact-card">
+            <div class="contact-row">
+              <div class="contact-icon">📞</div>
+              <div>
+                <div class="contact-label">اطلب الآن</div>
+                <div class="contact-text">
+              
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-actions">
+              <a class="linkbtn" href="tel:01111177581">📲 اتصال 01111177581</a>
+              <a class="linkbtn" href="tel:01515209933">📲 اتصال 01515209933</a>
+            </div>
+
+            <div class="contact-row" style="margin-top: 4px;">
+              <div class="contact-icon">🌐</div>
+              <div>
+                <div class="contact-label">تابعنا</div>
+                
+              </div>
+            </div>
+
+            <div class="contact-actions">
+              <a class="linkbtn secondary" target="_blank" rel="noopener"
+                 href="https://www.facebook.com/profile.php?id=61587104375782">📘 Facebook</a>
+              <a class="linkbtn secondary" target="_blank" rel="noopener"
+                 href="https://www.tiktok.com/@arabicacoffee7">🎵 TikTok</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-footer">
+          <div>© مطحن بن اريكا</div>
+          <div>تم التصميم خصيصا لمطحن بن ارابيكا</div>
+        </div>
+      </section>
     </div>
 
     <div class="bottomnav" aria-label="التنقل">
@@ -868,11 +1059,9 @@
       function normalizeText(s) {
         return (s || "").toString().trim().toLowerCase().replace(/\s+/g, " ");
       }
-
       function formatPrice(p, currency) {
         return `${p} ${currency}`;
       }
-
       function uniq(arr) {
         return Array.from(new Set(arr));
       }
@@ -888,11 +1077,9 @@
           return new Set();
         }
       }
-
       function saveFavorites(set) {
         localStorage.setItem(FAVORITES_KEY, JSON.stringify(Array.from(set)));
       }
-
       function buildCategories(products) {
         const cats = uniq(products.map((p) => p.category));
         return ["All", ...cats];
@@ -903,17 +1090,14 @@
         (p.options || []).forEach((o) => m.set(o.key, o));
         return m;
       }
-
       function getPriceForOption(p, key) {
         const m = optionsMap(p);
         return m.get(key)?.price;
       }
-
       function getMinPrice(p) {
         if (Array.isArray(p.options) && p.options.length) return Math.min(...p.options.map((o) => o.price));
         return p.price ?? 0;
       }
-
       function getMaxPrice(p) {
         if (Array.isArray(p.options) && p.options.length) return Math.max(...p.options.map((o) => o.price));
         return p.price ?? 0;
@@ -950,8 +1134,6 @@
       }
 
       function getImageSrc(p) {
-        // Local images by convention: images/<id>.webp
-        // You can override per product by setting p.image = "images/custom.webp"
         return p.image || `images/${p.id}.webp`;
       }
 
@@ -1091,9 +1273,7 @@
         img.alt = p.name_ar;
         img.loading = "lazy";
         img.decoding = "async";
-        img.addEventListener("error", () => {
-          img.remove(); // fallback to gradient background
-        });
+        img.addEventListener("error", () => { img.remove(); });
         thumb.appendChild(img);
 
         const label = document.createElement("div");
